@@ -1,4 +1,4 @@
-#### Hello!
+### Hello!
 
 This is a small, new project, attempting to use Meteor as a build tool and Hapi/Joi for
 a RESTful server-side framework. There are a lot of advantages to this structure:
