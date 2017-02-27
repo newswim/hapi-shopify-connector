@@ -43,11 +43,13 @@ server.register(require('hapi-auth-jwt'), function (err) {
       // Register all of the routes
       server.route(routes)
 
-      server.start(err => {
-          if (err) {
-              // just logging the errors that bubble up to server
-              console.log(`Someone sent you this: ${err}`)
-          }
-          console.log(`Hapi server started at ${server.info.uri}`)
-      })
+})
+
+
+server.start(err => {
+    if (err) {
+        // just logging the errors that bubble up to server
+        console.log(`Someone sent you this: ${err}`)
+    }
+    console.log(`Hapi server started at ${server.info.uri}`)
 })

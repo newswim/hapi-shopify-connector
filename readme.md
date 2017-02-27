@@ -20,3 +20,10 @@ Shopify provides webhooks for the following actions:
 - Order update
 
 Plus a bunch of others, but that's what we're concerned with.
+
+
+---
+
+### TODO
+
+Convert to using [hapi-auth-jwt2](https://github.com/dwyl/hapi-auth-jwt2)
