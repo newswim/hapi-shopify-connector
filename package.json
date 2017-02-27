@@ -1,0 +1,14 @@
+{
+  "name": "vtiger-rest",
+  "private": true,
+  "scripts": {
+    "start": "meteor run"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.20.0",
+    "hapi": "16.1.0",
+    "joi": "10.2.2",
+    "meteor-node-stubs": "~0.2.4",
+    "node-vtiger": "^0.3.4"
+  }
+}
