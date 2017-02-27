@@ -8,6 +8,7 @@
     "babel-runtime": "^6.20.0",
     "disinfect": "^0.2.1",
     "hapi": "16.1.0",
+    "hapi-auth-jwt": "^4.0.0",
     "joi": "10.2.2",
     "meteor-node-stubs": "~0.2.4",
     "node-vtiger": "^0.3.4"
