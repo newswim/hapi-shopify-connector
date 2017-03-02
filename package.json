@@ -6,9 +6,12 @@
   },
   "dependencies": {
     "babel-runtime": "^6.20.0",
+    "boom": "^4.2.0",
+    "crypto": "^0.0.3",
     "disinfect": "^0.2.1",
     "hapi": "16.1.0",
-    "hapi-auth-jwt": "^4.0.0",
+    "hapi-auth-basic": "^4.2.0",
+    "hapi-auth-jwt2": "^7.2.4",
     "joi": "10.2.2",
     "meteor-node-stubs": "~0.2.4",
     "node-vtiger": "^0.3.4"

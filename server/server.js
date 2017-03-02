@@ -1,9 +1,26 @@
+import crypto from 'crypto'
 import Hapi from 'hapi'
 import Joi from 'joi'
 import * as Secrets from './secrets'
 import routes from './routes'
+const BasicAuth = require('hapi-auth-basic')
+const JWTAuth = require('hapi-auth-jwt2')
+
 
 const server = new Hapi.Server()
+
+const SECRETS = {
+    password: Secrets.default.CUSTOM_PASSWORD,
+    clientId: Secrets.default.CLIENT_ID,
+    secret  : Secrets.default.CUSTOM_SECRET
+}
+
+const basicValidate = (hash) => {
+    if (!hash) {
+        return false
+    }
+    return hash
+}
 
 
 // there should be something to swap <connection> for prod/dev
@@ -30,21 +47,29 @@ server.register({
     }
 })
 
-server.register(require('hapi-auth-jwt'), function (err) {
+server.register([BasicAuth, JWTAuth], function (err) {
 
-      server.auth.strategy('token', 'jwt', {
-            key: Secrets.default.CLIENT_SECRET,
-            verifyOptions: {
-              algorithms: [ 'HS256' ],
-              audience: Secrets.default.CLIENT_ID
-            }
-      })
+    if (err) {
+        console.log('error', 'failed to install plugins')
+        throw err
+    }
 
-      // Register all of the routes
-      server.route(routes)
+    server.auth.strategy('token', 'jwt', {
+        key: SECRETS.secret,
+        validateFunc: basicValidate,
+        verifyOptions: {
+            algorithms: [ 'HS256' ],
+            // audience: Secrets.default.CLIENT_ID  // in this case, Auth0 is our audience
+        }
+    })
+
+    server.auth.strategy('simple', 'basic', { validateFunc: basicValidate })
+
+    // Register all of the routes
 
 })
 
+server.route(routes)
 
 server.start(err => {
     if (err) {
