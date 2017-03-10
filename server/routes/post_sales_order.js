@@ -12,36 +12,31 @@
 import Joi from 'joi'
 import Boom from 'boom'
 import * as Secrets from '../secrets'
+import VTiger from '../lib/vtiger'
 
 
-// const schema = Joi.object().keys({
-//     username: Joi.string().alphanum().min(3).max(30).required(),
-//     password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/),
-//     access_token: [Joi.string(), Joi.number()],
-//     birthyear: Joi.number().integer().min(1900).max(2013),
-//     email: Joi.string().email()
-// }).with('username', 'birthyear').without('password', 'access_token');
+// http://stackoverflow.com/questions/36125736/validating-json-query-string-as-query-param-using-joi
+// https://hapijs.com/tutorials/validation
+
 
 // Connect to vTiger
 // Take the New Order from shopify and push it into the Sales Orders module
 
+// We can't really authenticate this route because there's no way to include
+// headers in the webhook from Shopify
+// Also, Joi doesn't have a way of checking for an exact string, and .regex
+// doesn't seem to work.
+
 export default {
     path: '/v1/post-sales-order',
     method: ['PUT', 'GET'],
-    config: {
-        // auth: 'simple', // This registers route with our authentication strategy
-        validate: {
-            query: {
-                validationKey: Joi.string().required()
-            },
-        },
-    },
     handler: (request, reply) => {
-        if (request.query.validationKey !== Secrets.default.CUSTOM_SECRET) {
+        if (request.raw['req']['headers']['x-shopify-hmac-sha256'] !== Secrets.default.CUSTOM_SECRET) {
             console.log('bad key')
-            return reply(Boom.unauthorized('Bad key'))
+            return reply(Boom.unauthorized('Key did not match.'))
         }
         console.log(`Get request from ${request.route.path} with method ${request.route.method}`)
-        reply(`You had some params: ${request.query.validationKey}`) /* .code(200) */
+        console.log(`Shopify token: ${request.raw['req']['headers']['x-shopify-hmac-sha256']}`)
+        reply(`Right token!`).code(200)
     }
 }

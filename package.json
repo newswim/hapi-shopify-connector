@@ -9,11 +9,18 @@
     "boom": "^4.2.0",
     "crypto": "^0.0.3",
     "disinfect": "^0.2.1",
+    "es6-error": "^4.0.2",
+    "fibers": "^1.0.15",
     "hapi": "16.1.0",
+    "hapi-api-secret-key": "^1.0.1",
     "hapi-auth-basic": "^4.2.0",
     "hapi-auth-jwt2": "^7.2.4",
+    "invariant": "^2.2.2",
     "joi": "10.2.2",
+    "lodash": "^4.17.4",
     "meteor-node-stubs": "~0.2.4",
-    "node-vtiger": "^0.3.4"
+    "node-vtiger": "^0.3.4",
+    "qs": "^6.3.1",
+    "url": "^0.11.0"
   }
 }
